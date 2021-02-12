@@ -1,8 +1,8 @@
 {
-  "name": " ",
+  "name": "jordans-site",
   "version": "0.0.1",
-  "description": "",
-  "keywords": "",
+  "description": "Just your average portfolio site ",
+  "keywords": "jordan, schnur, zyneak, mobieus",
   "license": "",
   "author": "",
   "scripts": {
@@ -19,6 +19,7 @@
   "dependencies": {
     "bootstrap": "^4.6.0",
     "jquery": "^3.5.1",
-    "popper.js": "^1.16.1"
+    "popper.js": "^1.16.1",
+    "react-bootstrap": "^1.4.3"
   }
 }
