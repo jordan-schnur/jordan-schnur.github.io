@@ -3,3 +3,23 @@
 html {
   scroll-behavior: smooth;
 }
+
+.js-home{
+  background-color: $gray-100;
+  height: 105%;
+}
+
+.js-about{
+  background-color: $primary;
+  height: 100%;
+}
+
+.js-projects{
+  background-color: $yellow;
+  height: 100%;
+}
+
+.js-contact{
+  background-color: $red;
+  height: 100%;
+}
