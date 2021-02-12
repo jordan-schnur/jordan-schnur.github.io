@@ -14552,4 +14552,24 @@ html {
   scroll-behavior: smooth;
 }
 
+.js-home {
+  background-color: #f8f9fa;
+  height: 105%;
+}
+
+.js-about {
+  background-color: #007bff;
+  height: 100%;
+}
+
+.js-projects {
+  background-color: #ffc107;
+  height: 100%;
+}
+
+.js-contact {
+  background-color: #dc3545;
+  height: 100%;
+}
+
 /*# sourceMappingURL=/main.fb6bbcaf.css.map */
