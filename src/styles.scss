@@ -1,1 +1,76 @@
-/* You can add global styles to this file, and also import other style files */
+@import "bootstrap/scss/bootstrap";
+
+/* Define your color scheme */
+$color-about: lighten(#ADD8E6, 10%); // Softer LightBlue
+$color-experience: lighten(#90EE90, 10%); // Softer LightGreen
+$color-projects: lighten(#F0E68C, 10%); // Softer Khaki
+$color-education: lighten(#FFB6C1, 10%); // Softer LightPink
+$color-skills: lighten(#20B2AA, 10%); // Softer LightSeaGreen
+
+// Complementary colors for h1 borders
+$border-about: darken(#ADD8E6, 15%);
+$border-experience: darken(#90EE90, 15%);
+$border-projects: darken(#F0E68C, 15%);
+$border-education: darken(#FFB6C1, 15%);
+$border-skills: darken(#20B2AA, 15%);
+
+/* Style for each full-page section */
+section {
+  min-height: 100vh;
+  padding: 60px 0;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  color: #fff;
+}
+
+section#projects {
+  justify-content: normal;
+}
+
+#about { background-color: $color-about; }
+#experience { background-color: $color-experience; }
+#projects { background-color: $color-projects; }
+#education { background-color: $color-education; }
+#skills { background-color: $color-skills; }
+
+/* Ensure text is readable and has sufficient contrast */
+h2, p, a {
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Additional responsive styling as needed */
+@media (max-width: 768px) {
+  section {
+    padding: 30px 0;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+h1 {
+  font-weight: 700;          // Keeps the font bold
+  margin-bottom: 1rem;       // Provides space below the header
+  padding: 0.5rem 0;         // Slightly pads the top and bottom (adjust as needed)
+  text-align: center;        // Centers the text
+  font-size: 2.5em;          // Increases the font size for impact (adjust as needed)
+  color: var(--bs-dark);     // Use a color variable for easy theme changes
+  letter-spacing: 0.05em;    // Optional: Increases letter spacing for a modern touch
+
+  border-bottom: 3px solid transparent; // Default border
+  padding-bottom: 0.5rem; // Padding to separate text from border
+
+  @media (max-width: 768px) {
+    font-size: 1.8em;       // Slightly smaller font size for mobile devices
+  }
+}
+
+#about h1 { border-bottom-color: $border-about; }
+#experience h1 { border-bottom-color: $border-experience; }
+#projects h1 { border-bottom-color: $border-projects; }
+#education h1 { border-bottom-color: $border-education; }
+#skills h1 { border-bottom-color: $border-skills; }
+
+
