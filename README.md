@@ -13,7 +13,7 @@ A modern, clean portfolio website built with Vite and Bootstrap 5.
 
 ```
 ├── public/              # Static assets
-│   ├── logo.png
+│   ├── logo.jpg
 │   └── favicon_io/      # Favicon files
 ├── src/
 │   ├── main.js          # Bootstrap imports and interactions

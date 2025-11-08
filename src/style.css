@@ -24,7 +24,11 @@ body {
 .navbar {
   backdrop-filter: blur(10px);
   background-color: rgba(255, 255, 255, 0.95) !important;
-  transition: all 0.3s ease;
+  transition: all 0.3s ease, box-shadow 0.3s ease;
+}
+
+.navbar.scrolled {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1) !important;
 }
 
 .navbar-brand {
@@ -69,9 +73,12 @@ body {
 
 /* Hero section */
 #hero {
-  background: linear-gradient(135deg, #e8eef5 0%, #d4dce8 100%);
+  background: linear-gradient(135deg, #e8eef5 0%, #d4dce8 50%, #e0e7f0 100%);
+  background-size: 200% 200%;
+  animation: gradientShift 15s ease infinite;
   position: relative;
   padding-top: 120px; /* Space for fixed navbar + extra padding */
+  overflow: hidden; /* Prevent content overflow */
 }
 
 /* Hero image styling */
@@ -84,14 +91,15 @@ body {
     inset 0 0 30px rgba(0, 0, 0, 0.2),
     0 10px 40px rgba(0, 0, 0, 0.15);
   border: 5px solid rgba(255, 255, 255, 0.9);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: box-shadow 0.3s ease;
+  animation: float 6s ease-in-out infinite;
 }
 
 .hero-image:hover {
-  transform: scale(1.05);
   box-shadow:
     inset 0 0 30px rgba(0, 0, 0, 0.3),
     0 15px 50px rgba(0, 0, 0, 0.2);
+  animation-play-state: paused;
 }
 
 @media (max-width: 768px) {
@@ -126,6 +134,66 @@ body {
   transition-delay: 0.5s;
 }
 
+/* Slide in from left animation */
+.slide-in-left {
+  opacity: 0;
+  transform: translateX(-50px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.slide-in-left.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Slide in from right animation */
+.slide-in-right {
+  opacity: 0;
+  transform: translateX(50px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.slide-in-right.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Scale up animation */
+.scale-in {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.scale-in.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Floating animation for hero image */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+/* Hero image animation is defined above in the main .hero-image selector */
+
+/* Subtle background animation */
+@keyframes gradientShift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Hero background animation styles are defined above in the main #hero selector */
+
 /* Buttons */
 .btn {
   border-radius: 50px;
@@ -133,29 +201,72 @@ body {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   border-width: 2px;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s ease, height 0.6s ease;
+}
+
+.btn:hover::before {
+  width: 300px;
+  height: 300px;
 }
 
 .btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
 }
 
 .btn:active {
-  transform: translateY(0);
+  transform: translateY(-1px) scale(1.02);
 }
 
 /* Cards */
 .card {
   border-radius: 15px;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   overflow: hidden;
+  position: relative;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(13, 110, 253, 0.1) 0%, rgba(108, 117, 125, 0.05) 100%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 0;
+}
+
+.card:hover::before {
+  opacity: 1;
+}
+
+.card-body {
+  position: relative;
+  z-index: 1;
 }
 
 .hover-lift:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15) !important;
+  transform: translateY(-15px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2) !important;
 }
 
 /* Sections */
@@ -295,6 +406,26 @@ html {
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.badge:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.badge-animated {
+  animation: pulse 2s ease-in-out infinite;
 }
 
 /* Icon alignment in buttons */
@@ -329,10 +460,15 @@ section h2::after {
   bottom: -10px;
   left: 50%;
   transform: translateX(-50%);
-  width: 60px;
+  width: 0;
   height: 4px;
   background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
   border-radius: 2px;
+  transition: width 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+section h2.visible::after {
+  width: 60px;
 }
 
 /* Responsive spacing */

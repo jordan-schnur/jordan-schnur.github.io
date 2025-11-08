@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
     })
   })
 
-  // Fade in animation on scroll
+  // Enhanced scroll animations
   const observerOptions = {
     threshold: 0.1,
     rootMargin: '0px 0px -100px 0px'
@@ -72,5 +72,51 @@ document.addEventListener('DOMContentLoaded', () => {
     })
   }, observerOptions)
 
-  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el))
+  // Observe all animated elements
+  document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right, .scale-in').forEach(el => observer.observe(el))
+
+  // Observe section headers for animated underline
+  document.querySelectorAll('section h2').forEach(el => observer.observe(el))
+
+  // Navbar shadow on scroll
+  const navbar = document.querySelector('.navbar')
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+      navbar.classList.add('scrolled')
+    } else {
+      navbar.classList.remove('scrolled')
+    }
+  })
+
+  // Subtle fade effect for hero section (removed parallax to prevent overlap)
+  window.addEventListener('scroll', () => {
+    const scrolled = window.pageYOffset
+    const hero = document.querySelector('#hero')
+    if (hero && scrolled < hero.offsetHeight) {
+      // Only fade opacity, no transform to prevent overlap
+      hero.style.opacity = 1 - (scrolled / hero.offsetHeight) * 0.3
+    }
+  })
+
+  // Stagger card animations
+  const cards = document.querySelectorAll('.card')
+  cards.forEach((card, index) => {
+    card.style.transitionDelay = `${index * 0.1}s`
+  })
+
+  // Add subtle mouse tracking to hero section
+  const heroSection = document.querySelector('#hero')
+  if (heroSection) {
+    heroSection.addEventListener('mousemove', (e) => {
+      const { clientX, clientY } = e
+      const { innerWidth, innerHeight } = window
+      const xPercent = (clientX / innerWidth - 0.5) * 2
+      const yPercent = (clientY / innerHeight - 0.5) * 2
+
+      const heroImage = document.querySelector('.hero-image')
+      if (heroImage) {
+        heroImage.style.transform = `translate(${xPercent * 10}px, ${yPercent * 10}px)`
+      }
+    })
+  }
 })
