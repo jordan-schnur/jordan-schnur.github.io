@@ -658,9 +658,18 @@ html {
   color: #58a6ff !important;
 }
 
-/* Timeline styling */
+/* Timeline */
 .timeline {
   position: relative;
+}
+
+.timeline-item a.text-primary:hover {
+  color: #0a58ca !important;
+  text-decoration: underline !important;
+}
+
+[data-theme="dark"] .timeline-item a.text-primary:hover {
+  color: #6ea8fe !important;
 }
 
 .timeline-item {

@@ -169,7 +169,7 @@ Pretty much. Not AI _replacing_ devs—AI **amplifying** devs. I spent less time
 
 ## Poke Around
 
-Code’s here: [github.com/jordan-schnur/jordan-schnur/jordan-schnur.github.io](https://github.com/jordan-schnur/jordan-schnur.github.io)
+Code's here: <a href="https://github.com/jordan-schnur/jordan-schnur.github.io" target="_blank" rel="noopener noreferrer">github.com/jordantschnur/jordan-schnur.github.io</a>
 
 - Check the blog pipeline
 - Peek at the router
@@ -180,4 +180,4 @@ Code’s here: [github.com/jordan-schnur/jordan-schnur/jordan-schnur.github.io](
 
 Did AI write most of this site? Yeah. Did it make me lazier? No—it made me more deliberate. I still chose the direction, the tradeoffs, and the feel. AI just removed the friction between idea and result.
 
-If you want to talk AI pairing, scalable systems, or modern web stacks, I’m around on [LinkedIn](https://linkedin.com/in/jordan-schnur).
+If you want to talk AI pairing, scalable systems, or modern web stacks, I'm around on <a href="https://linkedin.com/in/jordan-schnur" target="_blank" rel="noopener noreferrer">LinkedIn</a>.
