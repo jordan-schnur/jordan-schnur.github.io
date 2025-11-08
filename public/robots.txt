@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://jordan-schnur.github.io/sitemap.xml
+
