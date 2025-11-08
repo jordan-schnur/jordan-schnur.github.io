@@ -7,6 +7,217 @@ import './style.css'
 
 // Smooth scroll for navigation links
 document.addEventListener('DOMContentLoaded', () => {
+  // Typing animation
+  const phrases = [
+    'Senior Software Engineer II',
+    'Full-Stack Developer',
+    'AI Advocate',
+    'Team Leader',
+    'Problem Solver'
+  ]
+  let phraseIndex = 0
+  let charIndex = 0
+  let isDeleting = false
+  const typedTextElement = document.getElementById('typed-text')
+
+  function typeEffect() {
+    const currentPhrase = phrases[phraseIndex]
+
+    if (isDeleting) {
+      typedTextElement.textContent = currentPhrase.substring(0, charIndex - 1)
+      charIndex--
+    } else {
+      typedTextElement.textContent = currentPhrase.substring(0, charIndex + 1)
+      charIndex++
+    }
+
+    if (!isDeleting && charIndex === currentPhrase.length) {
+      setTimeout(() => { isDeleting = true }, 2000)
+    } else if (isDeleting && charIndex === 0) {
+      isDeleting = false
+      phraseIndex = (phraseIndex + 1) % phrases.length
+    }
+
+    const typingSpeed = isDeleting ? 50 : 100
+    setTimeout(typeEffect, typingSpeed)
+  }
+
+  setTimeout(typeEffect, 500)
+
+  // Theme Toggle with System Preference Detection
+  const themeToggle = document.getElementById('theme-toggle')
+  const htmlElement = document.documentElement
+  const lightIcon = document.querySelector('.theme-icon-light')
+  const darkIcon = document.querySelector('.theme-icon-dark')
+
+  // Function to get system preference
+  function getSystemTheme() {
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+  }
+
+  // Function to update theme
+  function setTheme(theme) {
+    htmlElement.setAttribute('data-theme', theme)
+    if (theme === 'dark') {
+      lightIcon.classList.add('d-none')
+      darkIcon.classList.remove('d-none')
+    } else {
+      lightIcon.classList.remove('d-none')
+      darkIcon.classList.add('d-none')
+    }
+  }
+
+  // Check for saved theme preference or use system preference
+  const savedTheme = localStorage.getItem('theme')
+  const currentTheme = savedTheme || getSystemTheme()
+  setTheme(currentTheme)
+
+  // Listen for system theme changes if no manual preference is set
+  if (!savedTheme) {
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
+    mediaQuery.addEventListener('change', (e) => {
+      // Only auto-switch if user hasn't manually set a preference
+      if (!localStorage.getItem('theme')) {
+        setTheme(e.matches ? 'dark' : 'light')
+      }
+    })
+  }
+
+  themeToggle.addEventListener('click', () => {
+    const theme = htmlElement.getAttribute('data-theme')
+    const newTheme = theme === 'light' ? 'dark' : 'light'
+
+    setTheme(newTheme)
+    localStorage.setItem('theme', newTheme)
+  })
+
+  // Scroll Progress Indicator
+  const scrollProgress = document.getElementById('scroll-progress')
+  window.addEventListener('scroll', () => {
+    const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight
+    const scrolled = (window.scrollY / windowHeight) * 100
+    scrollProgress.style.width = scrolled + '%'
+  })
+
+  // Back to Top Button
+  const backToTopButton = document.getElementById('back-to-top')
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 300) {
+      backToTopButton.classList.add('visible')
+    } else {
+      backToTopButton.classList.remove('visible')
+    }
+  })
+
+  backToTopButton.addEventListener('click', () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    })
+  })
+
+  // Particle Background Effect
+  const canvas = document.getElementById('particles-canvas')
+  if (canvas) {
+    const ctx = canvas.getContext('2d')
+    let particles = []
+    let animationFrameId
+
+    function resizeCanvas() {
+      canvas.width = canvas.offsetWidth
+      canvas.height = canvas.offsetHeight
+    }
+
+    resizeCanvas()
+    window.addEventListener('resize', resizeCanvas)
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width
+        this.y = Math.random() * canvas.height
+        this.size = Math.random() * 2 + 1
+        this.speedX = Math.random() * 0.5 - 0.25
+        this.speedY = Math.random() * 0.5 - 0.25
+        this.opacity = Math.random() * 0.5 + 0.2
+      }
+
+      update() {
+        this.x += this.speedX
+        this.y += this.speedY
+
+        if (this.x > canvas.width) this.x = 0
+        if (this.x < 0) this.x = canvas.width
+        if (this.y > canvas.height) this.y = 0
+        if (this.y < 0) this.y = canvas.height
+      }
+
+      draw() {
+        const theme = document.documentElement.getAttribute('data-theme')
+        ctx.fillStyle = theme === 'dark' ? `rgba(77, 158, 255, ${this.opacity})` : `rgba(13, 110, 253, ${this.opacity})`
+        ctx.beginPath()
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2)
+        ctx.fill()
+      }
+    }
+
+    function createParticles() {
+      const particleCount = Math.floor((canvas.width * canvas.height) / 15000)
+      for (let i = 0; i < particleCount; i++) {
+        particles.push(new Particle())
+      }
+    }
+
+    function connectParticles() {
+      const maxDistance = 100
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x
+          const dy = particles[i].y - particles[j].y
+          const distance = Math.sqrt(dx * dx + dy * dy)
+
+          if (distance < maxDistance) {
+            const theme = document.documentElement.getAttribute('data-theme')
+            const opacity = (1 - distance / maxDistance) * 0.2
+            ctx.strokeStyle = theme === 'dark' ? `rgba(77, 158, 255, ${opacity})` : `rgba(13, 110, 253, ${opacity})`
+            ctx.lineWidth = 0.5
+            ctx.beginPath()
+            ctx.moveTo(particles[i].x, particles[i].y)
+            ctx.lineTo(particles[j].x, particles[j].y)
+            ctx.stroke()
+          }
+        }
+      }
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height)
+
+      particles.forEach(particle => {
+        particle.update()
+        particle.draw()
+      })
+
+      connectParticles()
+      animationFrameId = requestAnimationFrame(animate)
+    }
+
+    createParticles()
+    animate()
+
+    // Pause animation when not visible for performance
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          animate()
+        } else {
+          cancelAnimationFrame(animationFrameId)
+        }
+      })
+    })
+
+    observer.observe(canvas)
+  }
+
   // Handle navbar link clicks for smooth scrolling
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
