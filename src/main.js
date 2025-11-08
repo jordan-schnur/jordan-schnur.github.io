@@ -5,6 +5,10 @@ import * as bootstrap from 'bootstrap'
 // Import custom styles
 import './style.css'
 
+// Import blog system
+import { router } from './blog/router.js'
+import { blogManager } from './blog/manager.js'
+
 // Smooth scroll for navigation links
 document.addEventListener('DOMContentLoaded', () => {
   // Typing animation
@@ -224,23 +228,33 @@ document.addEventListener('DOMContentLoaded', () => {
       const targetId = this.getAttribute('href')
       if (targetId !== '#' && targetId !== '') {
         e.preventDefault()
-        const target = document.querySelector(targetId)
-        if (target) {
-          // Close mobile navbar if open
-          const navbarCollapse = document.querySelector('.navbar-collapse')
-          if (navbarCollapse && navbarCollapse.classList.contains('show')) {
-            const bsCollapse = new bootstrap.Collapse(navbarCollapse, {
-              toggle: false
-            })
-            bsCollapse.hide()
-          }
 
-          const navbarHeight = document.querySelector('.navbar').offsetHeight
-          const targetPosition = target.offsetTop - navbarHeight
-          window.scrollTo({
-            top: targetPosition,
-            behavior: 'smooth'
-          })
+        // Check if we're on a blog page
+        const currentPath = window.location.pathname
+        const isOnBlogPage = currentPath.startsWith('/blog')
+
+        if (isOnBlogPage) {
+          // Navigate to homepage with hash
+          window.location.href = '/' + targetId
+        } else {
+          const target = document.querySelector(targetId)
+          if (target) {
+            // Close mobile navbar if open
+            const navbarCollapse = document.querySelector('.navbar-collapse')
+            if (navbarCollapse && navbarCollapse.classList.contains('show')) {
+              const bsCollapse = new bootstrap.Collapse(navbarCollapse, {
+                toggle: false
+              })
+              bsCollapse.hide()
+            }
+
+            const navbarHeight = document.querySelector('.navbar').offsetHeight
+            const targetPosition = target.offsetTop - navbarHeight
+            window.scrollTo({
+              top: targetPosition,
+              behavior: 'smooth'
+            })
+          }
         }
       }
     })
@@ -330,4 +344,182 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     })
   }
+
+  // Blog System Setup
+  const mainContent = document.getElementById('main-content')
+  const blogPage = document.getElementById('blog-page')
+  const blogListPage = document.getElementById('blog-list-page')
+  const blogPostPage = document.getElementById('blog-post-page')
+
+  function showMainContent() {
+    mainContent.classList.remove('d-none')
+    blogPage.classList.add('d-none')
+    window.scrollTo(0, 0)
+  }
+
+  function showBlogList() {
+    mainContent.classList.add('d-none')
+    blogPage.classList.remove('d-none')
+    blogListPage.classList.remove('d-none')
+    blogPostPage.classList.add('d-none')
+    window.scrollTo(0, 0)
+  }
+
+  function showBlogPost() {
+    mainContent.classList.add('d-none')
+    blogPage.classList.remove('d-none')
+    blogListPage.classList.add('d-none')
+    blogPostPage.classList.remove('d-none')
+    window.scrollTo(0, 0)
+  }
+
+  // Load featured blog posts on homepage
+  async function loadFeaturedPosts() {
+    const container = document.getElementById('blog-posts-container')
+
+    try {
+      await blogManager.loadPosts()
+      const featured = blogManager.getFeaturedPosts()
+
+      if (featured.length === 0) {
+        container.innerHTML = '<div class="col-12 text-center"><p class="text-muted">No blog posts yet. Check back soon!</p></div>'
+        return
+      }
+
+      container.innerHTML = featured.map(post => `
+        <div class="col-md-6 col-lg-4 scale-in">
+          <div class="card blog-card h-100 shadow-sm border-0">
+            <div class="card-body">
+              <div class="mb-3">
+                ${post.tags.map(tag => `<span class="blog-card-tag">${tag}</span>`).join('')}
+              </div>
+              <h5 class="card-title fw-bold">${post.title}</h5>
+              <p class="text-muted small mb-2">${blogManager.formatDate(post.date)} • ${blogManager.getReadingTime(post.content)}</p>
+              <p class="card-text text-muted">${post.excerpt}</p>
+              <a href="/blog/${post.slug}" data-link class="btn btn-outline-primary">Read More</a>
+            </div>
+          </div>
+        </div>
+      `).join('')
+
+      // Trigger animations
+      document.querySelectorAll('#blog-posts-container .scale-in').forEach(el => observer.observe(el))
+    } catch (error) {
+      console.error('Error loading blog posts:', error)
+      container.innerHTML = '<div class="col-12 text-center"><p class="text-danger">Error loading blog posts.</p></div>'
+    }
+  }
+
+  // Load all blog posts for blog list page
+  async function loadAllPosts() {
+    const container = document.getElementById('all-posts-container')
+    container.innerHTML = '<div class="col-12 text-center"><div class="spinner-border text-primary" role="status"></div></div>'
+
+    try {
+      const posts = await blogManager.loadPosts()
+
+      if (!posts || posts.length === 0) {
+        container.innerHTML = '<div class="col-12 text-center"><p class="text-muted">No blog posts yet. Check back soon!</p></div>'
+        return
+      }
+
+      container.innerHTML = posts.map(post => `
+        <div class="col-12 mb-4">
+          <div class="card blog-card shadow-sm border-0">
+            <div class="card-body">
+              <div class="mb-3">
+                ${post.tags.map(tag => `<span class="blog-card-tag">${tag}</span>`).join('')}
+              </div>
+              <h3 class="card-title fw-bold mb-2">
+                <a href="/blog/${post.slug}" data-link class="text-decoration-none">${post.title}</a>
+              </h3>
+              <p class="text-muted small mb-3">${blogManager.formatDate(post.date)} • ${blogManager.getReadingTime(post.content)} • By ${post.author}</p>
+              <p class="card-text">${post.excerpt}</p>
+              <a href="/blog/${post.slug}" data-link class="btn btn-primary">Read More</a>
+            </div>
+          </div>
+        </div>
+      `).join('')
+    } catch (error) {
+      console.error('Error loading blog posts:', error)
+      container.innerHTML = '<div class="col-12 text-center"><p class="text-danger">Error loading blog posts.</p></div>'
+    }
+  }
+
+  // Load individual blog post
+  async function loadBlogPost(slug) {
+    const container = document.getElementById('blog-post-content')
+    container.innerHTML = '<div class="text-center"><div class="spinner-border text-primary" role="status"></div></div>'
+
+    try {
+      const post = await blogManager.getPost(slug)
+
+      if (!post) {
+        container.innerHTML = '<div class="alert alert-danger">Blog post not found.</div>'
+        return
+      }
+
+      container.innerHTML = `
+        <div class="blog-post-meta mb-4">
+          <div class="mb-3">
+            ${post.tags.map(tag => `<span class="blog-card-tag">${tag}</span>`).join('')}
+          </div>
+          <div>${blogManager.formatDate(post.date)} • ${blogManager.getReadingTime(post.content)} • By ${post.author}</div>
+        </div>
+        <div class="blog-post-content">
+          ${post.html}
+        </div>
+      `
+
+      // Update page title
+      document.title = `${post.title} | Jordan Schnur`
+    } catch (error) {
+      console.error('Error loading blog post:', error)
+      container.innerHTML = '<div class="alert alert-danger">Error loading blog post.</div>'
+    }
+  }
+
+  // Setup routes
+  router.addRoute('/', () => {
+    showMainContent()
+    document.title = 'Jordan Schnur Pittsburgh | Senior Software Engineer II | Full-Stack Developer'
+
+    // Handle hash scrolling after navigation
+    setTimeout(() => {
+      const hash = window.location.hash
+      if (hash) {
+        const target = document.querySelector(hash)
+        if (target) {
+          const navbarHeight = document.querySelector('.navbar').offsetHeight
+          const targetPosition = target.offsetTop - navbarHeight
+          window.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth'
+          })
+        }
+      }
+    }, 100)
+  })
+
+  router.addRoute('/blog', () => {
+    showBlogList()
+    loadAllPosts()
+    document.title = 'Blog | Jordan Schnur'
+  })
+
+  router.addRoute('/blog/:slug', async (params) => {
+    showBlogPost()
+    await loadBlogPost(params.slug)
+  })
+
+  router.addRoute('404', () => {
+    showMainContent()
+    // Could add a 404 section or alert here
+  })
+
+  // Initialize router
+  router.init()
+
+  // Load featured posts on homepage
+  loadFeaturedPosts()
 })

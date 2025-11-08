@@ -119,6 +119,9 @@
               <a class="nav-link" href="#projects">Projects</a>
             </li>
             <li class="nav-item">
+              <a class="nav-link" href="#blog">Blog</a>
+            </li>
+            <li class="nav-item">
               <a class="nav-link" href="#experience">Experience</a>
             </li>
             <li class="nav-item">
@@ -137,13 +140,23 @@
                 </svg>
               </button>
             </li>
+            <li class="nav-item d-lg-none mt-3">
+              <button class="btn btn-outline-secondary w-100 mobile-menu-close" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-label="Close menu">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="me-2" viewBox="0 0 16 16">
+                  <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+                </svg>
+                Close Menu
+              </button>
+            </li>
           </ul>
         </div>
       </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section id="hero" class="min-vh-100 d-flex align-items-center">
+    <!-- Main Content Container -->
+    <div id="main-content">
+      <!-- Hero Section -->
+      <section id="hero" class="min-vh-100 d-flex align-items-center">
       <canvas id="particles-canvas"></canvas>
       <div class="container">
         <div class="row align-items-center">
@@ -292,6 +305,31 @@
                 <p class="card-text text-muted">Multiple game prototypes including Death Is Inevitable, Arc of Time, and Bee Spellbound using Godot and Unity engines.</p>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section id="blog" class="py-5 bg-light">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-10 mx-auto text-center mb-5">
+            <h2 class="display-5 fw-bold mb-4">Blog</h2>
+            <p class="lead text-muted">Thoughts on software engineering, architecture, and technology</p>
+          </div>
+        </div>
+        <div class="row g-4" id="blog-posts-container">
+          <!-- Blog posts will be dynamically loaded here -->
+          <div class="col-12 text-center">
+            <div class="spinner-border text-primary" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-4">
+          <div class="col text-center">
+            <a href="/blog" data-link class="btn btn-primary btn-lg">View All Posts</a>
           </div>
         </div>
       </div>
@@ -530,6 +568,54 @@
         </div>
       </div>
     </section>
+
+    </div>
+    <!-- End Main Content Container -->
+
+    <!-- Blog Pages Container (hidden by default, shown when navigating to blog routes) -->
+    <div id="blog-page" class="d-none">
+      <!-- Blog list page -->
+      <div id="blog-list-page" class="min-vh-100 py-5">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-10 mx-auto">
+              <div class="mb-5">
+                <a href="/" data-link class="btn btn-outline-secondary mb-4">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" class="me-2">
+                    <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+                  </svg>
+                  Back to Home
+                </a>
+                <h1 class="display-4 fw-bold mb-3">Blog</h1>
+                <p class="lead text-muted">Insights on software engineering, architecture, and technology</p>
+              </div>
+              <div id="all-posts-container" class="row g-4">
+                <!-- All blog posts will load here -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Individual blog post page -->
+      <div id="blog-post-page" class="min-vh-100 py-5">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-8 mx-auto">
+              <a href="/blog" data-link class="btn btn-outline-secondary mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" class="me-2">
+                  <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+                </svg>
+                Back to Blog
+              </a>
+              <article id="blog-post-content">
+                <!-- Blog post content will load here -->
+              </article>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- Footer -->
     <footer class="py-4 bg-dark text-white text-center" itemscope itemtype="https://schema.org/WPFooter">
