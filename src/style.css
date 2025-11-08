@@ -69,15 +69,15 @@ body {
 
 /* Hero section */
 #hero {
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  background: linear-gradient(135deg, #e8eef5 0%, #d4dce8 100%);
   position: relative;
-  margin-top: 76px; /* Account for fixed navbar */
+  padding-top: 120px; /* Space for fixed navbar + extra padding */
 }
 
 /* Hero image styling */
 .hero-image {
-  width: 250px;
-  height: 250px;
+  width: 300px;
+  height: 300px;
   border-radius: 50%;
   object-fit: cover;
   box-shadow:
@@ -96,8 +96,8 @@ body {
 
 @media (max-width: 768px) {
   .hero-image {
-    width: 200px;
-    height: 200px;
+    width: 250px;
+    height: 250px;
   }
 }
 

@@ -15,6 +15,15 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault()
         const target = document.querySelector(targetId)
         if (target) {
+          // Close mobile navbar if open
+          const navbarCollapse = document.querySelector('.navbar-collapse')
+          if (navbarCollapse && navbarCollapse.classList.contains('show')) {
+            const bsCollapse = new bootstrap.Collapse(navbarCollapse, {
+              toggle: false
+            })
+            bsCollapse.hide()
+          }
+
           const navbarHeight = document.querySelector('.navbar').offsetHeight
           const targetPosition = target.offsetTop - navbarHeight
           window.scrollTo({

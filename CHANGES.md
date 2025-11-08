@@ -2,22 +2,29 @@
 
 ## ✅ Issues Fixed
 
-### 1. White Bar Below Navbar (FIXED)
+### 1. White Bar Below Navbar (FIXED) ✅
 **Problem:** Small white bar appeared between the navbar and hero section
 **Solution:** 
-- Removed `padding-top: 76px` from body
-- Added `margin-top: 76px` to hero section specifically
-- Added `scroll-margin-top: 76px` to non-hero sections for proper anchor scrolling
+- Changed from `margin-top: 76px` to `padding-top: 120px` on hero section
+- Changed hero background from bright `#f8f9fa` to softer `#e8eef5` → `#d4dce8` gradient
+- No gap, seamless transition from navbar to hero
 
-### 2. Hero Image Added (COMPLETED)
+### 2. Hero Image Added (COMPLETED) ✅
 **Image:** `/IMG_2798.jpeg`
 **Styling:**
-- Circular 250px image (200px on mobile)
+- Circular 300px image (250px on mobile) - **INCREASED SIZE**
 - Inset shadow for depth: `inset 0 0 30px rgba(0, 0, 0, 0.2)`
 - Outer shadow: `0 10px 40px rgba(0, 0, 0, 0.15)`
 - White border: `5px solid rgba(255, 255, 255, 0.9)`
 - Hover effect with scale transform
 - Blends beautifully with gradient background
+
+### 2b. Hero Background Brightness (FIXED) ✅
+**Problem:** Hero section was too bright/washed out
+**Solution:**
+- Changed from `linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)` 
+- To darker: `linear-gradient(135deg, #e8eef5 0%, #d4dce8 100%)`
+- More subtle, professional appearance
 
 ### 3. Timeline Content Overlap (FIXED)
 **Problem:** Text content was overlapping with the timeline bar
@@ -43,7 +50,7 @@
 - Hover scale effect (1.1x)
 - Aligned with company names in flexbox layout
 
-### 5. Education Section Added (NEW)
+### 5. Education Section Added (NEW) ✅
 **Content:**
 - CCAC Associate of Science degree (2017-2019)
 - Mathematics & Science major
@@ -52,18 +59,30 @@
 - Proper card layout matching site design
 - Added to navigation menu
 
+### 6. Mobile Navigation UX (FIXED) ✅
+**Problem:** On mobile, clicking a nav link didn't close the menu - users had to manually close it
+**Solution:**
+- Added Bootstrap Collapse functionality to auto-close navbar after link click
+- Detects when navbar is open and closes it programmatically
+- Much better mobile UX - no extra taps needed!
+
 ## 🎨 Style Improvements
 
 ### Hero Section
 ```css
 .hero-image {
-  width: 250px;
-  height: 250px;
+  width: 300px;  /* Increased from 250px */
+  height: 300px;
   border-radius: 50%;
   box-shadow: 
     inset 0 0 30px rgba(0, 0, 0, 0.2),
     0 10px 40px rgba(0, 0, 0, 0.15);
   border: 5px solid rgba(255, 255, 255, 0.9);
+}
+
+#hero {
+  background: linear-gradient(135deg, #e8eef5 0%, #d4dce8 100%);
+  padding-top: 120px;
 }
 ```
 
@@ -89,9 +108,10 @@
 
 ## 📱 Responsive Considerations
 
-- Hero image scales down to 200px on mobile
+- Hero image: 300px on desktop, 250px on mobile
 - Company logos remain 48px (clearly visible)
 - Timeline bar only shows on desktop (768px+)
+- Mobile navbar auto-closes after link click (better UX)
 - All spacing adjusts for mobile viewports
 
 ## 🔧 Technical Details
