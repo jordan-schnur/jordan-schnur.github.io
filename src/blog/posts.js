@@ -6,6 +6,10 @@
 
 export const blogPosts = [
   {
+    slug: 'building-a-pm-for-ai-agents',
+    filename: 'building-a-pm-for-ai-agents.md'
+  },
+  {
     slug: 'building-portfolio-with-ai',
     filename: 'building-portfolio-with-ai.md'
   },

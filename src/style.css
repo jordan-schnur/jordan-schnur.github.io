@@ -868,6 +868,19 @@ section h2.visible::after {
   margin-bottom: 0.5rem;
 }
 
+.blog-post-content img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 2rem auto;
+  border-radius: 8px;
+  border: 1px solid var(--border-color, rgba(0, 0, 0, 0.1));
+}
+
+[data-theme="dark"] .blog-post-content img {
+  border-color: #30363d;
+}
+
 .blog-post-content code {
   background-color: var(--light-bg);
   padding: 0.2rem 0.4rem;
