@@ -169,7 +169,7 @@ Pretty much. Not AI _replacing_ devs—AI **amplifying** devs. I spent less time
 
 ## Poke Around
 
-Code's here: <a href="https://github.com/jordan-schnur/jordan-schnur.github.io" target="_blank" rel="noopener noreferrer">github.com/jordantschnur/jordan-schnur.github.io</a>
+Code's here: <a href="https://github.com/jordan-schnur/jordan-schnur.github.io" target="_blank" rel="noopener noreferrer">github.com/jordan-schnur/jordan-schnur.github.io</a>
 
 - Check the blog pipeline
 - Peek at the router
