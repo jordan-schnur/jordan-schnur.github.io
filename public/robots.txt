@@ -1,5 +1,5 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://jordan-schnur.github.io/sitemap.xml
-
+Sitemap: https://jordanschnur.com/sitemap.xml
+Sitemap: https://jordanschnur.com/factorio-calculator/sitemap.xml

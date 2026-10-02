@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://jordan-schnur.github.io/</loc>
-    <lastmod>2026-06-09</lastmod>
+    <loc>https://jordanschnur.com/</loc>
+    <lastmod>2026-10-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://jordan-schnur.github.io/blog</loc>
-    <lastmod>2026-06-09</lastmod>
+    <loc>https://jordanschnur.com/blog</loc>
+    <lastmod>2026-10-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://jordan-schnur.github.io/blog/building-a-pm-for-ai-agents</loc>
-    <lastmod>2026-06-09</lastmod>
+    <loc>https://jordanschnur.com/blog/building-a-pm-for-ai-agents</loc>
+    <lastmod>2026-10-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://jordan-schnur.github.io/blog/building-portfolio-with-ai</loc>
-    <lastmod>2026-06-09</lastmod>
+    <loc>https://jordanschnur.com/blog/building-portfolio-with-ai</loc>
+    <lastmod>2026-10-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

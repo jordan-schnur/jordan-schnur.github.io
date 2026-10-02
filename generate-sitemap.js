@@ -4,7 +4,7 @@ import path from 'path'
 
 // Generate sitemap with blog posts
 function generateSitemap() {
-  const baseUrl = 'https://jordan-schnur.github.io'
+  const baseUrl = 'https://jordanschnur.com'
   const today = new Date().toISOString().split('T')[0]
 
   const staticPages = [
